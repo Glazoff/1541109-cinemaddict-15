@@ -1,5 +1,5 @@
 import {createFilterStatsTemplate} from './view/filter-stats.js';
-import {createFilмList} from './view/film-list.js';
+import {createFilmList} from './view/film-list.js';
 import {createCardFilm} from './view/card-film.js';
 import {createUserRating} from './view/user-rating.js';
 import {createShowMore} from './view/show-more.js';
@@ -22,7 +22,7 @@ const render = (container, template, place) => {
 
 render(siteMainElement, createFilterStatsTemplate(), 'afterbegin');
 
-render(siteMainElement, createFilмList(), 'beforeend');
+render(siteMainElement, createFilmList(), 'beforeend');
 
 //Отрисовываем общий список фильмов
 const filmsList = document.querySelector('.films-list');
