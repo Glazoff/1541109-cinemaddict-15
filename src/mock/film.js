@@ -107,6 +107,26 @@ const ganerateReleaseDate = () => {
   return dataFilm;
 };
 
+const ganerateInDetailReleaseDate = () => {
+  const minData = '1900';
+  const maxData = '1990';
+  const minNumber = '1';
+  const maxNumber = '30';
+  const month = [
+    'January ',
+    'February ',
+    'March ',
+    'July ',
+    'November ',
+    'September ',
+  ];
+
+  const dataFilm = getRandomInteger(minData, maxData);
+  const monthFilm = getRandomInteger(0, month.length - 1);
+  const numberFilm = getRandomInteger(minNumber, maxNumber);
+  return `${numberFilm} ${month[monthFilm]} ${dataFilm}`;
+};
+
 const ganerateRunTime = () => {
   const minHours = '0';
   const maxHours = '2';
@@ -137,6 +157,68 @@ const generateGenre = () => {
   return genre[randomIndex];
 };
 
+const generateDirector = () => {
+  const director = [
+    'Anthony Mann',
+    'Anne Wigton',
+    'Heinz Herald',
+  ];
+
+  const randomIndex = getRandomInteger(0, director.length - 1);
+  return director[randomIndex];
+};
+
+const generateWriters = () => {
+  const writers = [
+    'Anne Wigton, Heinz Herald, Richard Weil',
+    'Richard Weil, Heinz Herald, Dan Duryea',
+    'Anne Wigton, Erich von Stroheim, Richard Weil',
+  ];
+
+  const randomIndex = getRandomInteger(0, writers.length - 1);
+  return writers[randomIndex];
+};
+
+const generateActors = () => {
+  const actors = [
+    'Anne Wigton, Heinz Herald, Richard Weil',
+    'Richard Weil, Heinz Herald, Dan Duryea',
+    'Anne Wigton, Erich von Stroheim, Richard Weil',
+  ];
+
+  const randomIndex = getRandomInteger(0, actors.length - 1);
+  return actors[randomIndex];
+};
+
+const generateCountry = () => {
+  const country = [
+    'USA',
+    'Belgium',
+    'Canada',
+    'Cuba',
+  ];
+
+  const randomIndex = getRandomInteger(0, country.length - 1);
+  return country[randomIndex];
+};
+
+const ganerateInDetailGenres = () => {
+  const genres = [
+    'Drama Film-Noir Mystery',
+    'Drama Western',
+    'Western Cartoon Drama',
+  ];
+
+  const randomIndex = getRandomInteger(0, genres.length - 1);
+  return genres[randomIndex];
+};
+
+const ganerateRatingAge = () => {
+  const ratingAge = Boolean(getRandomInteger(0, 1));
+
+  return ratingAge? '18+': '';
+};
+
 export const generateFilm = () => ({
   poster: generatePoster(),
   title: generateTitle(),
@@ -151,3 +233,27 @@ export const generateFilm = () => ({
   isAddToFavorites: Boolean(getRandomInteger(0, 1)),
 });
 
+export const generateFilmPopup = () => ({
+  poster: generatePoster(),
+  title: generateTitle(),
+  originalTitle: generateTitle(),
+  rating: ganerateRating(),
+  director: generateDirector(),
+  writers: generateWriters(),
+  actors: generateActors(),
+  releaseDate: ganerateInDetailReleaseDate(),
+  runtime: ganerateRunTime(),
+  country: generateCountry(),
+  genres: ganerateInDetailGenres(),
+  description: generateDescription(),
+  ratingAge: ganerateRatingAge(),
+  comments: [{
+    userName: 'Tim Macoveev',
+    emoji: '/public/images/emoji/angry.png',
+    commentText: 'Interesting setting and a good cast',
+    commentTime: '2019/12/31 23:59'}
+  ,{},{},{},{}],
+  isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
+  isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
+  isAddToFavorites: Boolean(getRandomInteger(0, 1)),
+});

@@ -3,14 +3,14 @@ import {createFilmList} from './view/film-list.js';
 import {createCardFilm} from './view/card-film.js';
 import {createUserRating} from './view/user-rating.js';
 import {createShowMore} from './view/show-more.js';
-//import {createPopupFilmDetails} from './view/popup-film-details.js';
-import {generateFilm} from './mock/film.js';
+import {createPopupFilmDetails} from './view/popup-film-details.js';
+import {generateFilm, generateFilmPopup} from './mock/film.js';
 
 const COUNT_FILMS_LIST = 5;
-//const body = document.querySelector('body');
+const body = document.querySelector('body');
+console.log(generateFilmPopup());
 
 const films = new Array(COUNT_FILMS_LIST).fill().map(generateFilm);
-console.log(films);
 
 const siteMainElement = document.querySelector('.main');
 const siteHederElement = document.querySelector('.header');
@@ -39,4 +39,4 @@ render(siteHederElement, createUserRating(), 'beforeend');
 render(filmsListContainer, createShowMore(), 'afterend');
 
 //Отрисовываем подробную информацию о фильме
-//render(body, createPopupFilmDetails(), 'beforeend');
+render(body, createPopupFilmDetails(films[0]), 'beforeend');
