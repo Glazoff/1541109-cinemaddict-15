@@ -39,4 +39,4 @@ render(siteHederElement, createUserRating(), 'beforeend');
 render(filmsListContainer, createShowMore(), 'afterend');
 
 //Отрисовываем подробную информацию о фильме
-render(body, createPopupFilmDetails(films[0]), 'beforeend');
+render(body, createPopupFilmDetails(generateFilmPopup()), 'beforeend');

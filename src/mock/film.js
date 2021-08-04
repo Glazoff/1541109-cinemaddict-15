@@ -76,7 +76,6 @@ const generatePoster = () => {
 
 const generateTitle = () => {
   const title = [
-    'GeneratePoster',
     'Made for each other',
     'Popeye meets sinbad',
     'Sagebrush trail',
@@ -202,21 +201,14 @@ const generateCountry = () => {
   return country[randomIndex];
 };
 
-const ganerateInDetailGenres = () => {
-  const genres = [
-    'Drama Film-Noir Mystery',
-    'Drama Western',
-    'Western Cartoon Drama',
-  ];
-
-  const randomIndex = getRandomInteger(0, genres.length - 1);
-  return genres[randomIndex];
-};
-
 const ganerateRatingAge = () => {
   const ratingAge = Boolean(getRandomInteger(0, 1));
 
   return ratingAge? '18+': '';
+};
+
+const generateComments = () => {
+  
 };
 
 export const generateFilm = () => ({
@@ -236,7 +228,6 @@ export const generateFilm = () => ({
 export const generateFilmPopup = () => ({
   poster: generatePoster(),
   title: generateTitle(),
-  originalTitle: generateTitle(),
   rating: ganerateRating(),
   director: generateDirector(),
   writers: generateWriters(),
@@ -244,7 +235,9 @@ export const generateFilmPopup = () => ({
   releaseDate: ganerateInDetailReleaseDate(),
   runtime: ganerateRunTime(),
   country: generateCountry(),
-  genres: ganerateInDetailGenres(),
+  genresOne: generateGenre(),
+  genresTwo: generateGenre(),
+  genresFree: generateGenre(),
   description: generateDescription(),
   ratingAge: ganerateRatingAge(),
   comments: [{
