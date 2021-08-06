@@ -207,8 +207,51 @@ const ganerateRatingAge = () => {
   return ratingAge? '18+': '';
 };
 
+const ganerateTextComment = () => {
+  const textComment = [
+    'Interesting setting and a good cast',
+    'Booooooooooring',
+    'Very very old. Meh',
+    'Almost two hours? Seriously?',
+  ];
+
+  const randomIndex = getRandomInteger(0, textComment.length - 1);
+  return textComment[randomIndex];
+};
+
+const ganerateEmoji = () => {
+  const emoji = [
+    './images/emoji/sleeping.png',
+    './images/emoji/puke.png',
+    './images/emoji/angry.png',
+    './images/emoji/smile.png',
+  ];
+
+  const randomIndex = getRandomInteger(0, emoji.length - 1);
+  return emoji[randomIndex];
+};
+
+const ganerateUserName = () => {
+  const userName = [
+    'Tim Macoveev',
+    'John Doe',
+    'Liam',
+    'Kevin',
+  ];
+
+  const randomIndex = getRandomInteger(0, userName.length - 1);
+  return userName[randomIndex];
+};
+
 const generateComments = () => {
-  
+  const comment = {
+    comment: ganerateTextComment(),
+    emoji: ganerateEmoji(),
+    userName: ganerateUserName(),
+    commentData: '',
+  };
+
+  return comment;
 };
 
 export const generateFilm = () => ({
@@ -240,12 +283,7 @@ export const generateFilmPopup = () => ({
   genresFree: generateGenre(),
   description: generateDescription(),
   ratingAge: ganerateRatingAge(),
-  comments: [{
-    userName: 'Tim Macoveev',
-    emoji: '/public/images/emoji/angry.png',
-    commentText: 'Interesting setting and a good cast',
-    commentTime: '2019/12/31 23:59'}
-  ,{},{},{},{}],
+  comments: generateComments(),
   isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
   isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
   isAddToFavorites: Boolean(getRandomInteger(0, 1)),

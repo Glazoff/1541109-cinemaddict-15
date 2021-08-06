@@ -5,6 +5,7 @@ import {createUserRating} from './view/user-rating.js';
 import {createShowMore} from './view/show-more.js';
 import {createPopupFilmDetails} from './view/popup-film-details.js';
 import {generateFilm, generateFilmPopup} from './mock/film.js';
+import {createComments} from './view/comment-card.js';
 
 const COUNT_FILMS_LIST = 5;
 const body = document.querySelector('body');
@@ -40,3 +41,7 @@ render(filmsListContainer, createShowMore(), 'afterend');
 
 //Отрисовываем подробную информацию о фильме
 render(body, createPopupFilmDetails(generateFilmPopup()), 'beforeend');
+
+
+const commentList = document.querySelector('.film-details__comments-list');
+render(commentList, createComments(), 'beforeend');
