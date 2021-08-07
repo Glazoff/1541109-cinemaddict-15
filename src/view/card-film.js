@@ -1,5 +1,7 @@
-export const createCardFilm = (films) => {
+export const createCardFilmTemplate = (films) => {
   const {poster, title, rating, releaseDate, runTime, genre, description, comments, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = films;
+
+
 
   const addToWatchlistClassName = isAddToWatchlist
     ? 'film-card__controls-item--active'

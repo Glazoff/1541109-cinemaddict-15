@@ -39,12 +39,20 @@ const film = {
 };
 */
 
-// Функция из интернета по генерации случайного числа из диапазона
-// Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_random
-const getRandomInteger = (a = 0, b = 1) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  return Math.floor(lower + Math.random() * (upper - lower + 1));
+import {getRandomInteger} from '../util';
+
+import dayjs from 'dayjs';
+// Функция рандомизирущая дату и вермя
+// Истояник - https://github.com/FraserHamilton/dayjs-random
+dayjs.between = (from, to) => {
+  const fromMilli = dayjs(from).valueOf();
+  const max = dayjs(to).valueOf() - fromMilli;
+
+  const dateOffset = Math.floor(Math.random() * max + 1);
+
+  const newDate = dayjs(fromMilli + dateOffset);
+
+  return dayjs(newDate);
 };
 
 const generateDescription = () => {
@@ -221,10 +229,10 @@ const ganerateTextComment = () => {
 
 const ganerateEmoji = () => {
   const emoji = [
-    './images/emoji/sleeping.png',
-    './images/emoji/puke.png',
-    './images/emoji/angry.png',
-    './images/emoji/smile.png',
+    '/images/emoji/angry.png',
+    '/images/emoji/puke.png',
+    '/images/emoji/angry.png',
+    '/images/emoji/sleeping.png',
   ];
 
   const randomIndex = getRandomInteger(0, emoji.length - 1);
@@ -243,12 +251,14 @@ const ganerateUserName = () => {
   return userName[randomIndex];
 };
 
+const ganerateDate = () => dayjs.between('2021-01-01T23:59', '2015-03-02T00:00').format('YYYY/MM/DD HH:MM');
+
 const generateComments = () => {
   const comment = {
-    comment: ganerateTextComment(),
+    commentText: ganerateTextComment(),
     emoji: ganerateEmoji(),
     userName: ganerateUserName(),
-    commentData: '',
+    commentData: ganerateDate(),
   };
 
   return comment;
@@ -276,7 +286,7 @@ export const generateFilmPopup = () => ({
   writers: generateWriters(),
   actors: generateActors(),
   releaseDate: ganerateInDetailReleaseDate(),
-  runtime: ganerateRunTime(),
+  runTime: ganerateRunTime(),
   country: generateCountry(),
   genresOne: generateGenre(),
   genresTwo: generateGenre(),
