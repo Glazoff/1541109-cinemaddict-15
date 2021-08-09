@@ -5,6 +5,7 @@ import {createUserRatingTemplate} from './view/user-rating.js';
 import {createShowMoreTemplate} from './view/show-more.js';
 import {createPopupFilmDetailsTemplate} from './view/popup-film-details.js';
 import {createCommentsTemplate} from './view/comment-card.js';
+import {createFooterStats} from './view/footer-stats';
 import {generateFilm, generateFilmPopup} from './mock/film.js';
 import {generateFilters} from './mock/filter.js';
 import {getRandomInteger} from './util.js';
@@ -20,6 +21,7 @@ const filters = generateFilters;
 
 const siteMainElement = document.querySelector('.main');
 const siteHeaderElement = document.querySelector('.header');
+const siteFooterElement = document.querySelector('.footer');
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -73,7 +75,6 @@ showMoreButton.addEventListener('click', ()=> {
 //Отрисовываем звание пользователя
 render(siteHeaderElement, createUserRatingTemplate(), 'beforeend');
 
-
 //Отрисовываем подробную информацию о фильме
 render(body, createPopupFilmDetailsTemplate(generateFilmPopup(), countComments), 'beforeend');
 
@@ -83,4 +84,5 @@ for (let i = 0; i < countComments; i++) {
   render(commentList, createCommentsTemplate(generateFilmPopup([0])), 'beforeend');
 }
 
-
+//Отрисовываем кол-во фильмов в футере
+render(siteFooterElement, createFooterStats(COUNT_FILMS_LIST), 'beforeend');
