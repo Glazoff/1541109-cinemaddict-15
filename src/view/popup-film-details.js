@@ -25,17 +25,20 @@ export const createPopupFilmDetailsTemplate = (film, countComments) => {
             <img class="film-details__poster-img" src=${poster} alt="">
 
             <p class="film-details__age">${ratingAge}</p>
+
           </div>
 
           <div class="film-details__info">
             <div class="film-details__info-head">
               <div class="film-details__title-wrap">
+
                 <h3 class="film-details__title">${title}</h3>
                 <p class="film-details__title-original">Original: ${title}</p>
               </div>
 
               <div class="film-details__rating">
                 <p class="film-details__total-rating">${rating}</p>
+
               </div>
             </div>
 
@@ -63,13 +66,16 @@ export const createPopupFilmDetailsTemplate = (film, countComments) => {
               <tr class="film-details__row">
                 <td class="film-details__term">Country</td>
                 <td class="film-details__cell">${country}</td>
+
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Genres</td>
                 <td class="film-details__cell">
+
                   <span class="film-details__genre">${genresOne}</span>
                   <span class="film-details__genre">${genresTwo}-Noir</span>
                   <span class="film-details__genre">${genresFree}</span></td>
+
               </tr>
             </table>
 
@@ -80,6 +86,7 @@ export const createPopupFilmDetailsTemplate = (film, countComments) => {
         </div>
 
         <section class="film-details__controls">
+
           <button type="button" class="film-details__control-button film-details__control-button--watchlist ${addToWatchlistClassName}" id="watchlist" name="watchlist">Add to watchlist</button>
           <button type="button" class="film-details__control-button film-details__control-button--watched ${alreadyWatchedClassName}" id="watched" name="watched">Already watched</button>
           <button type="button" class="film-details__control-button film-details__control-button--favorite ${addToFavoritesClassName}" id="favorite" name="favorite">Add to favorites</button>
@@ -88,6 +95,7 @@ export const createPopupFilmDetailsTemplate = (film, countComments) => {
 
       <div class="film-details__bottom-container">
         <section class="film-details__comments-wrap">
+
           <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${countComments}</span></h3>
 
           <ul class="film-details__comments-list">
@@ -127,3 +135,4 @@ export const createPopupFilmDetailsTemplate = (film, countComments) => {
     </form>
   </section>`;
 };
+

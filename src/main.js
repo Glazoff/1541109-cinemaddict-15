@@ -1,5 +1,5 @@
 import {createFilterStatsTemplate} from './view/filter-stats.js';
-import {createFilmListTemplate} from './view/film-list.js';
+import {createFilмListTemplate} from './view/film-list.js';
 import {createCardFilmTemplate} from './view/card-film.js';
 import {createUserRatingTemplate} from './view/user-rating.js';
 import {createShowMoreTemplate} from './view/show-more.js';
@@ -14,6 +14,7 @@ import {getRandomInteger} from './util.js';
 const COUNT_FILMS_LIST = 17;
 const countComments = getRandomInteger(1,5);
 
+
 const body = document.querySelector('body');
 
 const films = new Array(COUNT_FILMS_LIST).fill().map(generateFilm);
@@ -21,7 +22,9 @@ const filters = generateFilters;
 
 const siteMainElement = document.querySelector('.main');
 const siteHeaderElement = document.querySelector('.header');
+
 const siteFooterElement = document.querySelector('.footer');
+
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -29,7 +32,11 @@ const render = (container, template, place) => {
 
 render(siteMainElement, createFilterStatsTemplate(filters()), 'afterbegin');
 
-render(siteMainElement, createFilmListTemplate(), 'beforeend');
+
+render(siteMainElement, createFilterStatsTemplate(), 'afterbegin');
+
+render(siteMainElement, createFilмListTemplate(), 'beforeend');
+
 
 //Отрисовываем общий список фильмов
 const filmsList = document.querySelector('.films-list');
