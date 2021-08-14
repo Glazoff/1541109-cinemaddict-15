@@ -103,7 +103,7 @@ const USER_NAME = [
   'Kevin',
 ];
 
-import {getRandomInteger} from '../util';
+import {getRandomInteger} from '../utils';
 
 import dayjs from 'dayjs';
 // Функция рандомизирущая дату и вермя

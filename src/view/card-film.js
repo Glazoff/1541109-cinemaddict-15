@@ -1,6 +1,7 @@
-export const createCardFilmTemplate = (films) => {
-  const {poster, title, rating, releaseDate, runTime, genre, description, comments, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = films;
+import {createElement} from '../utils.js';
 
+const createCardFilmTemplate = (films) => {
+  const {poster, title, rating, releaseDate, runTime, genre, description, comments, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = films;
 
 
   const addToWatchlistClassName = isAddToWatchlist
@@ -35,3 +36,23 @@ export const createCardFilmTemplate = (films) => {
   </article>`;
 };
 
+export default class SiteCardFilm {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate(films) {
+    return createCardFilmTemplate(films);
+  }
+
+  getElement(films) {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate(films));
+    }
+    return this._element;
+  }
+
+  remuveElement() {
+    this._element = null;
+  }
+}

@@ -1,4 +1,4 @@
-import {getRandomInteger} from '../util.js';
+import {getRandomInteger} from '../utils.js';
 
 export const generateFilters = () => ({
   watchlist: getRandomInteger(1, 15),

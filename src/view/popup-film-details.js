@@ -1,4 +1,6 @@
-export const createPopupFilmDetailsTemplate = (film, countComments) => {
+import {createElement} from '../utils.js';
+
+const createPopupFilmDetailsTemplate = (film, countComments) => {
   const {poster, title, rating, director, writers, actors, releaseDate, runTime, country, genresOne, genresTwo, genresFree, description, ratingAge, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = film;
 
 
@@ -136,3 +138,23 @@ export const createPopupFilmDetailsTemplate = (film, countComments) => {
   </section>`;
 };
 
+export default class SitePopupFilmDetails {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate(film, countComments) {
+    return createPopupFilmDetailsTemplate(film, countComments);
+  }
+
+  getElement(film, countComments) {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate(film, countComments));
+    }
+    return this._element;
+  }
+
+  remuveElement() {
+    this._element = null;
+  }
+}
