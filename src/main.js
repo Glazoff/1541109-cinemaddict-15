@@ -12,7 +12,7 @@ import {generateFilters} from './mock/filter.js';
 import {getRandomInteger, renderElement, RenderPosition} from './utils.js';
 
 
-export const COUNT_FILMS_LIST = 1;
+export const COUNT_FILMS_LIST = 17;
 
 
 const body = document.querySelector('body');
@@ -23,7 +23,7 @@ const siteFooterElement = document.querySelector('.footer');
 const renderListEpmty = () => {
   if (COUNT_FILMS_LIST === 0) {
     body.innerHTML = '';
-    console.log('нет фильмов');
+
     return renderElement(body, new SiteListEmptyVeiw().getElement(), RenderPosition.BEFOREEND);
   }
 };
@@ -56,9 +56,11 @@ const renderFilm = (container, film) => {
 
   const onEscKeyDown = (evt) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
-      body.classList.remove('hide-overflow');
       const commentList = document.querySelector('.film-details__comments-list');
       const popup = document.querySelector('.film-details');
+
+      body.classList.remove('hide-overflow');
+
       if (commentList === null) {
         return;
       }
@@ -75,7 +77,9 @@ const renderFilm = (container, film) => {
     renderElement(body, filmPopupComponent.getElement(generateFilmPopup(), countComments), RenderPosition.BEFOREEND);
     createComments();
     const closeButtom = document.querySelector('.film-details__close-btn');
+
     document.addEventListener('keydown', onEscKeyDown);
+
     closeButtom.addEventListener('click', () => {
       body.classList.remove('hide-overflow');
       const commentList = document.querySelector('.film-details__comments-list');
@@ -91,9 +95,11 @@ const renderFilm = (container, film) => {
 
   const replacePopup = () => {
     const popup = document.querySelector('.film-details');
+
     if (!popup) {
       return openPopupFilm();
     }
+
     const commentList = document.querySelector('.film-details__comments-list');
     commentList.innerHTML = '';
     popup.remove();
@@ -105,6 +111,14 @@ const renderFilm = (container, film) => {
   filmComponent.getElement().querySelector('.film-card__poster').addEventListener('click', ()=> {
     replacePopup();
   });
+  filmComponent.getElement().querySelector('.film-card__title').addEventListener('click', ()=> {
+    replacePopup();
+  });
+  filmComponent.getElement().querySelector('.film-card__comments').addEventListener('click', (evt)=> {
+    evt.preventDefault();
+    replacePopup();
+  });
+
 };
 
 //Отрисовка карточек фильмов
