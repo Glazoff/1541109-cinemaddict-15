@@ -1,3 +1,9 @@
+import {generateFilm, generateFilmPopup} from './mock/film.js';
+import {generateFilters} from './mock/filter.js';
+import generateFilms from './mock/films.js';
+
+import {getRandomInteger, renderElement, RenderPosition} from './utils.js';
+
 import SiteListEmptyVeiw from './view/list-empty.js';
 import SiteFilterStats from './view/filter-stats.js';
 import SiteFilmListView from './view/film-list.js';
@@ -7,9 +13,6 @@ import SiteShowMoreView from './view/show-more.js';
 import SitePopupFilmDetailsView from './view/popup-film-details.js';
 import SiteCommentsView from './view/comment-card.js';
 import siteFooterElementView from './view/footer-stats';
-import {generateFilm, generateFilmPopup} from './mock/film.js';
-import {generateFilters} from './mock/filter.js';
-import {getRandomInteger, renderElement, RenderPosition} from './utils.js';
 
 
 export const COUNT_FILMS_LIST = 17;
@@ -29,10 +32,12 @@ const renderListEpmty = () => {
 };
 
 
-const films = new Array(COUNT_FILMS_LIST).fill().map(generateFilm);
-renderElement(siteMainElement,new SiteFilterStats().getElement(generateFilters()), RenderPosition.AFTERBEGIN);
-renderElement(siteMainElement, new SiteFilmListView().getElement(), RenderPosition.BEFOREEND);
+//const films = new Array(COUNT_FILMS_LIST).fill().map(generateFilm);
+const testFilmsMok = generateFilms(COUNT_FILMS_LIST);
+console.log(testFilmsMok);
 
+renderElement(siteMainElement,new SiteFilterStats(generateFilters()).getElement(), RenderPosition.AFTERBEGIN);
+renderElement(siteMainElement, new SiteFilmListView().getElement(), RenderPosition.BEFOREEND);
 //Отрисовываем общий список фильмов
 const filmsList = document.querySelector('.films-list');
 const filmsListContainer = filmsList.querySelector('.films-list__container');
@@ -42,18 +47,19 @@ renderElement(filmsList, new SiteShowMoreView().getElement(), RenderPosition.BEF
 const showMoreButton = document.querySelector('.films-list__show-more');
 
 const renderFilm = (container, film) => {
-  const filmComponent = new SiteCardFilmView();
-  const filmPopupComponent = new SitePopupFilmDetailsView();
   const countComments = getRandomInteger(1,5);
+  const filmComponent = new SiteCardFilmView(film);
+  const filmPopupComponent = new SitePopupFilmDetailsView(testFilmsMok[0], countComments);
 
+/*
   const createComments = () => {
     const commentList = document.querySelector('.film-details__comments-list');
 
     for (let i = 0; i < countComments; i++) {
-      renderElement(commentList, new SiteCommentsView().getElement(generateFilmPopup()), RenderPosition.BEFOREEND);
+      renderElement(commentList, new SiteCommentsView(generateFilmPopup()).getElement(), RenderPosition.BEFOREEND);
     }
   };
-
+*/
   const onEscKeyDown = (evt) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       const commentList = document.querySelector('.film-details__comments-list');
@@ -74,8 +80,8 @@ const renderFilm = (container, film) => {
   const openPopupFilm = () => {
     body.classList.add('hide-overflow');
 
-    renderElement(body, filmPopupComponent.getElement(generateFilmPopup(), countComments), RenderPosition.BEFOREEND);
-    createComments();
+    renderElement(body, filmPopupComponent.getElement(), RenderPosition.BEFOREEND);
+    //createComments();
     const closeButtom = document.querySelector('.film-details__close-btn');
 
     document.addEventListener('keydown', onEscKeyDown);
@@ -89,7 +95,7 @@ const renderFilm = (container, film) => {
       }
       commentList.innerHTML = '';
       popup.remove();
-      {true;}
+      //{true;}
     });
   };
 
@@ -106,7 +112,7 @@ const renderFilm = (container, film) => {
     openPopupFilm();
   };
 
-  renderElement(container, filmComponent.getElement(film), RenderPosition.BEFOREEND);
+  renderElement(container, filmComponent.getElement(), RenderPosition.BEFOREEND);
 
   filmComponent.getElement().querySelector('.film-card__poster').addEventListener('click', ()=> {
     replacePopup();
@@ -121,26 +127,34 @@ const renderFilm = (container, film) => {
 
 };
 
+
 //Отрисовка карточек фильмов
 let filmsCount = 5;
 
-if (COUNT_FILMS_LIST < 5) {
-  showMoreButton.remove();
-  for (let i = 0; i < COUNT_FILMS_LIST; i++){
-    renderFilm(filmsListContainer, films[i]);
-  }
-} else {
-  for (let i = 0; i < filmsCount; i++){
-    renderFilm(filmsListContainer, films[i]);
-  }
-}
 
+const renderMoreFilms = (/*from, to, films1*/) => {
+// const filmsSubList = films1.slice(from, to);
+
+
+  if (COUNT_FILMS_LIST < 5) {
+    showMoreButton.remove();
+    for (let i = 0; i < COUNT_FILMS_LIST; i++){
+      renderFilm(filmsListContainer, testFilmsMok[i]);
+    }
+  } else {
+    for (let i = 0; i < filmsCount; i++){
+      renderFilm(filmsListContainer, testFilmsMok[i]);
+    }
+  }
+};
+renderMoreFilms();
 
 const createFilms = () => {
   filmsCount +=5;
 
   filmsListContainer.innerHTML = '';
 
+  /*
   if (filmsCount > COUNT_FILMS_LIST ) {
     for (let i = 0; i < COUNT_FILMS_LIST; i++){
       renderFilm(filmsListContainer, films[i]);
@@ -150,6 +164,8 @@ const createFilms = () => {
       renderFilm(filmsListContainer, films[i]);
     }
   }
+  */
+  renderMoreFilms();
 
   if(filmsCount >= COUNT_FILMS_LIST) {
     showMoreButton.remove();
@@ -166,6 +182,6 @@ renderElement(siteHeaderElement, new SiteUserRatingView().getElement(), RenderPo
 
 
 //Отрисовываем кол-во фильмов в футере
-renderElement(siteFooterElement, new siteFooterElementView().getElement(COUNT_FILMS_LIST), RenderPosition.BEFOREEND);
+renderElement(siteFooterElement, new siteFooterElementView(COUNT_FILMS_LIST).getElement(), RenderPosition.BEFOREEND);
 
 renderListEpmty();

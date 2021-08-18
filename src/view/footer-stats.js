@@ -7,22 +7,23 @@ const createFooterStats = (COUNT_FILMS_LIST) => (
 );
 
 export default class SiteFooterStats {
-  constructor() {
+  constructor(filmsCount) {
     this._element = null;
+    this._filmsCount = filmsCount;
   }
 
-  getTemplate(COUNT_FILMS_LIST) {
-    return createFooterStats(COUNT_FILMS_LIST);
+  getTemplate() {
+    return createFooterStats(this._filmsCount);
   }
 
-  getElement(COUNT_FILMS_LIST) {
+  getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate(COUNT_FILMS_LIST));
+      this._element = createElement(this.getTemplate());
     }
     return this._element;
   }
 
-  remuveElement() {
+  removeElement() {
     this._element = null;
   }
 }

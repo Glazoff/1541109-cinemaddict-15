@@ -1,7 +1,7 @@
-import {createElement} from '../utils.js';
+import {createElement, renderElement, RenderPosition} from '../utils.js';
 
-const createPopupFilmDetailsTemplate = (film, countComments) => {
-  const {poster, title, rating, director, writers, actors, releaseDate, runTime, country, genresOne, genresTwo, genresFree, description, ratingAge, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = film;
+const createPopupFilmDetailsTemplate = (film) => {
+  const {comments, poster, title, rating, director, writers, actors, releaseDate, runTime, country, genresOne, genresTwo, genresFree, description, ratingAge, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = film;
 
 
   const addToWatchlistClassName = isAddToWatchlist
@@ -98,7 +98,7 @@ const createPopupFilmDetailsTemplate = (film, countComments) => {
       <div class="film-details__bottom-container">
         <section class="film-details__comments-wrap">
 
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${countComments}</span></h3>
+          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
 
           <ul class="film-details__comments-list">
           </ul>
@@ -138,18 +138,50 @@ const createPopupFilmDetailsTemplate = (film, countComments) => {
   </section>`;
 };
 
+const createCommentsTemplate = (commentObj) => {
+  const {comments} = commentObj;
+
+  const {commentText, emoji, userName, commentData} = comments;
+
+  return `<li class="film-details__comment">
+    <span class="film-details__comment-emoji">
+      <img src="${emoji}" width="55" height="55" alt="emoji-smile">
+    </span>
+    <div>
+      <p class="film-details__comment-text">${commentText}</p>
+      <p class="film-details__comment-info">
+        <span class="film-details__comment-author">${userName}</span>
+        <span class="film-details__comment-day">${commentData}</span>
+        <button class="film-details__comment-delete">Delete</button>
+      </p>
+    </div>
+  </li>`;
+};
+
+const createComments = (commentsCount, film) => {
+  const commentList = document.querySelector('.film-details__comments-list');
+  console.log(film);
+
+  for (let i = 0; i < commentsCount; i++) {
+    renderElement(commentList, createCommentsTemplate(film), RenderPosition.BEFOREEND);
+  }
+};
+
+
 export default class SitePopupFilmDetails {
-  constructor() {
+  constructor(film) {
     this._element = null;
+    this._film = film;
+    this._commentsFilm = film;
   }
 
-  getTemplate(film, countComments) {
-    return createPopupFilmDetailsTemplate(film, countComments);
+  getTemplate() {
+    return createPopupFilmDetailsTemplate(this._film), createComments(this._commentsFilm);
   }
 
-  getElement(film, countComments) {
+  getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate(film, countComments));
+      this._element = createElement(this.getTemplate());
     }
     return this._element;
   }

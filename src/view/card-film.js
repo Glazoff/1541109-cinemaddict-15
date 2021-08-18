@@ -27,7 +27,7 @@ const createCardFilmTemplate = (films) => {
     </p>
     <img src=${poster} alt="" class="film-card__poster">
     <p class="film-card__description">${description}</p>
-    <a class="film-card__comments">${comments} comments</a>
+    <a class="film-card__comments">${comments.length} comments</a>
     <div class="film-card__controls">
       <button class="film-card__controls-item film-card__controls-item--add-to-watchlist ${addToWatchlistClassName}" type="button">Add to watchlist</button>
       <button class="film-card__controls-item film-card__controls-item--mark-as-watched ${alreadyWatchedClassName}" type="button">Mark as watched</button>
@@ -37,17 +37,18 @@ const createCardFilmTemplate = (films) => {
 };
 
 export default class SiteCardFilm {
-  constructor() {
+  constructor(films) {
     this._element = null;
+    this._films = films;
   }
 
-  getTemplate(films) {
-    return createCardFilmTemplate(films);
+  getTemplate() {
+    return createCardFilmTemplate(this._films);
   }
 
-  getElement(films) {
+  getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate(films));
+      this._element = createElement(this.getTemplate());
     }
     return this._element;
   }

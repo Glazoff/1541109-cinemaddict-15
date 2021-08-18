@@ -25,17 +25,18 @@ const createFilterStatsTemplate = (filters) => {
 
 
 export default class SiteFilterStats {
-  constructor() {
+  constructor(filters) {
     this._element = null;
+    this._filters = filters;
   }
 
-  getTemplate(filters) {
-    return createFilterStatsTemplate(filters);
+  getTemplate() {
+    return createFilterStatsTemplate(this._filters);
   }
 
-  getElement(filters) {
+  getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate(filters));
+      this._element = createElement(this.getTemplate());
     }
     return this._element;
   }

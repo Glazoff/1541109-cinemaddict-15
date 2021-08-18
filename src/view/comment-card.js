@@ -21,17 +21,18 @@ const createCommentsTemplate = (films) => {
 };
 
 export default class SiteComments {
-  constructor() {
+  constructor(filmsComments) {
     this._element = null;
+    this._filmsComments = filmsComments;
   }
 
-  getTemplate(films) {
-    return createCommentsTemplate(films);
+  getTemplate() {
+    return createCommentsTemplate(this._filmsComments);
   }
 
-  getElement(films) {
+  getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate(films));
+      this._element = createElement(this.getTemplate());
     }
     return this._element;
   }
