@@ -1,8 +1,38 @@
-import {createElement, renderElement, RenderPosition} from '../utils.js';
+import {createElement} from '../utils.js';
+
+const createCommentsTemplate = (commentObj) => {
+  const {commentText, emoji, userName, commentData} = commentObj;
+
+  return `<li class="film-details__comment">
+    <span class="film-details__comment-emoji">
+      <img src="${emoji}" width="55" height="55" alt="emoji-smile">
+    </span>
+    <div>
+      <p class="film-details__comment-text">${commentText}</p>
+      <p class="film-details__comment-info">
+        <span class="film-details__comment-author">${userName}</span>
+        <span class="film-details__comment-day">${commentData}</span>
+        <button class="film-details__comment-delete">Delete</button>
+      </p>
+    </div>
+  </li>`;
+};
+
+const generateComments = (comment) => {
+  let commentsList = '';
+
+  for(let i = 0; i < comment.length; i++) {
+    const commentes = createCommentsTemplate(comment[i]);
+    commentsList = commentsList + commentes;
+  }
+
+  return commentsList;
+};
 
 const createPopupFilmDetailsTemplate = (film) => {
   const {comments, poster, title, rating, director, writers, actors, releaseDate, runTime, country, genresOne, genresTwo, genresFree, description, ratingAge, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = film;
 
+  const commentList = generateComments(comments);
 
   const addToWatchlistClassName = isAddToWatchlist
     ? 'film-details__control-button--active '
@@ -15,6 +45,7 @@ const createPopupFilmDetailsTemplate = (film) => {
   const addToFavoritesClassName = isAddToFavorites
     ? 'film-details__control-button--active '
     : '';
+
 
   return`<section class="film-details">
     <form class="film-details__inner" action="" method="get">
@@ -101,6 +132,7 @@ const createPopupFilmDetailsTemplate = (film) => {
           <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
 
           <ul class="film-details__comments-list">
+            ${commentList}
           </ul>
 
           <div class="film-details__new-comment">
@@ -138,6 +170,8 @@ const createPopupFilmDetailsTemplate = (film) => {
   </section>`;
 };
 
+
+/*#
 const createCommentsTemplate = (commentObj) => {
   const {comments} = commentObj;
 
@@ -160,23 +194,22 @@ const createCommentsTemplate = (commentObj) => {
 
 const createComments = (commentsCount, film) => {
   const commentList = document.querySelector('.film-details__comments-list');
-  console.log(film);
+  //console.log(film.comments);
 
   for (let i = 0; i < commentsCount; i++) {
     renderElement(commentList, createCommentsTemplate(film), RenderPosition.BEFOREEND);
   }
 };
-
+*/
 
 export default class SitePopupFilmDetails {
   constructor(film) {
     this._element = null;
     this._film = film;
-    this._commentsFilm = film;
   }
 
   getTemplate() {
-    return createPopupFilmDetailsTemplate(this._film), createComments(this._commentsFilm);
+    return createPopupFilmDetailsTemplate(this._film);
   }
 
   getElement() {

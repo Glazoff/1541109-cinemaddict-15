@@ -3,6 +3,7 @@ import {createElement} from '../utils.js';
 const createFilterStatsTemplate = (filters) => {
   const {watchlist, history, favorites} = filters;
 
+
   return `<div>
   <nav class="main-navigation">
 
@@ -25,13 +26,14 @@ const createFilterStatsTemplate = (filters) => {
 
 
 export default class SiteFilterStats {
-  constructor(filters) {
+  constructor(filters, films) {
     this._element = null;
     this._filters = filters;
+    this._films = films;
   }
 
   getTemplate() {
-    return createFilterStatsTemplate(this._filters);
+    return createFilterStatsTemplate(this._filters, this._films);
   }
 
   getElement() {

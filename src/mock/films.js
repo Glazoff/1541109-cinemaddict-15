@@ -225,7 +225,6 @@ const generateComment = () => {
 
 const generateComments = (number) => {
   const comments = [];
-  //const comments = new Array(number).fill().map(generateComment);
   for(let i = 0; i < number; i++) {
     const comment = generateComment();
     comments.push(comment);
@@ -283,14 +282,12 @@ const generateFilm = () => ({
   isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
   isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
   isAddToFavorites: Boolean(getRandomInteger(0, 1)),
-  //#TODO added
 
   comments: generateComments(getRandomInteger(1, 5)),
 });
 
 const generateFilms = (number) => {
   const films = [];
-  //const comments = new Array(number).fill().map(generateComment);
   for(let i = 0; i < number; i++) {
     const film = generateFilm();
     films.push(film);
@@ -298,7 +295,6 @@ const generateFilms = (number) => {
   return films;
 };
 
-//(new Array(number).fill().map(generateFilm()));
 
 export default generateFilms;
 
