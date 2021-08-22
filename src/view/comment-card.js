@@ -1,4 +1,6 @@
-export const createCommentsTemplate = (films) => {
+import {createElement} from '../utils.js';
+
+const createCommentsTemplate = (films) => {
   const {comments} = films;
 
   const {commentText, emoji, userName, commentData} = comments;
@@ -17,3 +19,25 @@ export const createCommentsTemplate = (films) => {
     </div>
   </li>`;
 };
+
+export default class SiteComments {
+  constructor(filmsComments) {
+    this._element = null;
+    this._filmsComments = filmsComments;
+  }
+
+  getTemplate() {
+    return createCommentsTemplate(this._filmsComments);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  remuveElement() {
+    this._element = null;
+  }
+}

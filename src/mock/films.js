@@ -212,7 +212,7 @@ const ganerateRandomUserName = () => {
 
 const ganerateRandomDate = () => dayjs.between('2021-01-01T23:59', '2015-03-02T00:00').format('YYYY/MM/DD HH:MM');
 
-const generateComments = () => {
+const generateComment = () => {
   const comment = {
     commentText: ganerateRandomTextComment(),
     emoji: ganerateRandomEmoji(),
@@ -223,20 +223,16 @@ const generateComments = () => {
   return comment;
 };
 
-export const generateFilm = () => ({
-  poster: generateRandomPoster(),
-  title: generateRandomTitle(),
-  rating: ganerateRandomRating(),
-  releaseDate: ganerateRandomReleaseDate(),
-  runTime: ganerateRandomRunTime(),
-  genre: generateRandomGenre(),
-  description: generateRandomDescription(),
-  comments: getRandomInteger(1, 5),
-  isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
-  isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
-  isAddToFavorites: Boolean(getRandomInteger(0, 1)),
-});
+const generateComments = (number) => {
+  const comments = [];
+  for(let i = 0; i < number; i++) {
+    const comment = generateComment();
+    comments.push(comment);
+  }
+  return comments;
+};
 
+/*
 export const generateFilmPopup = () => ({
   poster: generateRandomPoster(),
   title: generateRandomTitle(),
@@ -253,7 +249,52 @@ export const generateFilmPopup = () => ({
   description: generateRandomDescription(),
   ratingAge: ganerateRandomRatingAge(),
   comments: generateComments(),
+
   isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
   isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
   isAddToFavorites: Boolean(getRandomInteger(0, 1)),
 });
+*/
+
+
+const generateFilm = () => ({
+  poster: generateRandomPoster(),
+  title: generateRandomTitle(),
+  description: generateRandomDescription(),
+  rating: ganerateRandomRating(),
+
+  releaseDate: ganerateRandomReleaseDate(),
+  releaseDatePopup: ganerateRandomInDetailReleaseDate(),
+  runTime: ganerateRandomRunTime(),
+
+  genre: generateRandomGenre(),
+  genresOne: generateRandomGenre(),
+  genresTwo: generateRandomGenre(),
+  genresFree: generateRandomGenre(),
+
+  director: generateRandomDirector(),
+  actors: generateRandomActors(),
+  writers: generateRandomWriters(),
+  country: generateRandomCountry(),
+
+  ratingAge: ganerateRandomRatingAge(),
+
+  isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
+  isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
+  isAddToFavorites: Boolean(getRandomInteger(0, 1)),
+
+  comments: generateComments(getRandomInteger(1, 5)),
+});
+
+const generateFilms = (number) => {
+  const films = [];
+  for(let i = 0; i < number; i++) {
+    const film = generateFilm();
+    films.push(film);
+  }
+  return films;
+};
+
+
+export default generateFilms;
+
