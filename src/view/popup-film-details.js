@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import AbstractView from './abstract.js';
 
 const createCommentsTemplate = (commentObj) => {
   const {commentText, emoji, userName, commentData} = commentObj;
@@ -171,55 +171,14 @@ const createPopupFilmDetailsTemplate = (film) => {
 };
 
 
-/*#
-const createCommentsTemplate = (commentObj) => {
-  const {comments} = commentObj;
-
-  const {commentText, emoji, userName, commentData} = comments;
-
-  return `<li class="film-details__comment">
-    <span class="film-details__comment-emoji">
-      <img src="${emoji}" width="55" height="55" alt="emoji-smile">
-    </span>
-    <div>
-      <p class="film-details__comment-text">${commentText}</p>
-      <p class="film-details__comment-info">
-        <span class="film-details__comment-author">${userName}</span>
-        <span class="film-details__comment-day">${commentData}</span>
-        <button class="film-details__comment-delete">Delete</button>
-      </p>
-    </div>
-  </li>`;
-};
-
-const createComments = (commentsCount, film) => {
-  const commentList = document.querySelector('.film-details__comments-list');
-  //console.log(film.comments);
-
-  for (let i = 0; i < commentsCount; i++) {
-    renderElement(commentList, createCommentsTemplate(film), RenderPosition.BEFOREEND);
-  }
-};
-*/
-
-export default class SitePopupFilmDetails {
+export default class SitePopupFilmDetails extends AbstractView {
   constructor(film) {
-    this._element = null;
+    super();
     this._film = film;
   }
 
   getTemplate() {
     return createPopupFilmDetailsTemplate(this._film);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  remuveElement() {
-    this._element = null;
-  }
 }
+

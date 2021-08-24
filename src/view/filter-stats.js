@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import AbstractView from './abstract.js';
 
 const createFilterStatsTemplate = (filters) => {
   const {watchlist, history, favorites} = filters;
@@ -24,26 +24,15 @@ const createFilterStatsTemplate = (filters) => {
   </div>`;
 };
 
-
-export default class SiteFilterStats {
-  constructor(filters, films) {
-    this._element = null;
+export default class SiteFilterStats extends AbstractView {
+  constructor(filters) {
+    super();
     this._filters = filters;
-    this._films = films;
   }
 
   getTemplate() {
-    return createFilterStatsTemplate(this._filters, this._films);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  remuveElement() {
-    this._element = null;
+    return createFilterStatsTemplate(this._filters);
   }
 }
+
+
