@@ -103,7 +103,8 @@ const USER_NAME = [
   'Kevin',
 ];
 
-import {getRandomInteger} from '../utils';
+import {getRandomInteger} from '../utils/common.js';
+
 
 import dayjs from 'dayjs';
 // Функция рандомизирущая дату и вермя
@@ -231,31 +232,6 @@ const generateComments = (number) => {
   }
   return comments;
 };
-
-/*
-export const generateFilmPopup = () => ({
-  poster: generateRandomPoster(),
-  title: generateRandomTitle(),
-  rating: ganerateRandomRating(),
-  director: generateRandomDirector(),
-  writers: generateRandomWriters(),
-  actors: generateRandomActors(),
-  releaseDate: ganerateRandomInDetailReleaseDate(),
-  runTime: ganerateRandomRunTime(),
-  country: generateRandomCountry(),
-  genresOne: generateRandomGenre(),
-  genresTwo: generateRandomGenre(),
-  genresFree: generateRandomGenre(),
-  description: generateRandomDescription(),
-  ratingAge: ganerateRandomRatingAge(),
-  comments: generateComments(),
-
-  isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
-  isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
-  isAddToFavorites: Boolean(getRandomInteger(0, 1)),
-});
-*/
-
 
 const generateFilm = () => ({
   poster: generateRandomPoster(),
