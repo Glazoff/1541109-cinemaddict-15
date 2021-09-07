@@ -14,6 +14,10 @@ export default class SiteFilmList extends AbstractView {
   getTemplate() {
     return createFilmListTemplate();
   }
+
+  clearFilmList() {
+    this.getElement().querySelector('.films-list__container').innerHTML = '';
+  }
 }
 
 
