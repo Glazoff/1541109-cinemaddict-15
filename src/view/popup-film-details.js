@@ -175,10 +175,43 @@ export default class SitePopupFilmDetails extends AbstractView {
   constructor(film) {
     super();
     this._film = film;
+    this._editClickWatchlist = this._editClickWatchlist.bind(this);
+    this._editClickWatched = this._editClickWatched.bind(this);
+    this._editClickFavorites = this._editClickFavorites.bind(this);
   }
 
   getTemplate() {
     return createPopupFilmDetailsTemplate(this._film);
+  }
+
+  _editClickWatchlist(evt) {
+    evt.preventDefault();
+    this._callback.editChangeWatchlist();
+  }
+
+  _editClickWatched(evt) {
+    evt.preventDefault();
+    this._callback.editChangeWatched();
+  }
+
+  _editClickFavorites(evt) {
+    evt.preventDefault();
+    this._callback.editChangeFavorites();
+  }
+
+  setEditClickWatchlist(callback) {
+    this._callback.editChangeWatchlist = callback;
+    this.getElement().querySelector('.film-details__control-button--watchlist').addEventListener('click', this._editClickWatchlist);
+  }
+
+  setEditClickWatched(callback) {
+    this._callback.editChangeWatched = callback;
+    this.getElement().querySelector('.film-details__control-button--watched').addEventListener('click', this._editClickWatched);
+  }
+
+  setEditClickFavorites(callback) {
+    this._callback.editChangeFavorites = callback;
+    this.getElement().querySelector('.film-details__control-button--favorite').addEventListener('click', this._editClickFavorites);
   }
 }
 

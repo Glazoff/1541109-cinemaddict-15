@@ -1,7 +1,7 @@
 import AbstractView from './abstract.js';
 
 const createCardFilmTemplate = (films) => {
-  const {poster, title, rating, releaseDate, runTime, genre, description, comments, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = films;
+  const {id, poster, title, rating, releaseDate, runTime, genre, description, comments, isAddToWatchlist, isAlreadyWatched, isAddToFavorites} = films;
 
   const addToWatchlistClassName = isAddToWatchlist
     ? 'film-card__controls-item--active'
@@ -15,7 +15,7 @@ const createCardFilmTemplate = (films) => {
     ? 'film-card__controls-item--active'
     : '';
 
-  return `<article class="film-card">
+  return `<article class="film-card" id="${id}">
     <h3 class="film-card__title">${title}</h3>
     <p class="film-card__rating">${rating}</p>
 
@@ -40,6 +40,9 @@ export default class SiteCardFilm extends AbstractView {
     super();
     this._films = films;
     this._editClickHandler = this._editClickHandler.bind(this);
+    this._editClickWatchlist = this._editClickWatchlist.bind(this);
+    this._editClickWatched = this._editClickWatched.bind(this);
+    this._editClickFavorites = this._editClickFavorites.bind(this);
   }
 
   getTemplate() {
@@ -56,6 +59,36 @@ export default class SiteCardFilm extends AbstractView {
     this.getElement().querySelector('.film-card__poster').addEventListener('click', this._editClickHandler);
     this.getElement().querySelector('.film-card__title').addEventListener('click', this._editClickHandler);
     this.getElement().querySelector('.film-card__comments').addEventListener('click', this._editClickHandler);
+  }
+
+  _editClickWatchlist(evt) {
+    evt.preventDefault();
+    this._callback.editChangeWatchlist();
+  }
+
+  _editClickWatched(evt) {
+    evt.preventDefault();
+    this._callback.editChangeWatched();
+  }
+
+  _editClickFavorites(evt) {
+    evt.preventDefault();
+    this._callback.editChangeFavorites();
+  }
+
+  setEditClickWatchlist(callback) {
+    this._callback.editChangeWatchlist = callback;
+    this.getElement().querySelector('.film-card__controls-item--add-to-watchlist').addEventListener('click', this._editClickWatchlist);
+  }
+
+  setEditClickWatched(callback) {
+    this._callback.editChangeWatched = callback;
+    this.getElement().querySelector('.film-card__controls-item--mark-as-watched').addEventListener('click', this._editClickWatched);
+  }
+
+  setEditClickFavorites(callback) {
+    this._callback.editChangeFavorites = callback;
+    this.getElement().querySelector('.film-card__controls-item--favorite').addEventListener('click', this._editClickFavorites);
   }
 }
 

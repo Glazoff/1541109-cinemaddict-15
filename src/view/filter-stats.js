@@ -1,13 +1,13 @@
 import AbstractView from './abstract.js';
 
-const createFilterStatsTemplate = (films) => {
+const createFilterTemplate = (films) => {
 
   let countWatchlistFilms = 0;
   let countHistoryFilms = 0;
   let countFavoritesFilm = 0;
 
   films.forEach((film) => {
-    if(film.isAddToFavorites) {
+    if(film.isAddToWatchlist) {
       countWatchlistFilms = countWatchlistFilms + 1;
     }
     if(film.isAlreadyWatched) {
@@ -18,8 +18,7 @@ const createFilterStatsTemplate = (films) => {
     }
   });
 
-  return `<div>
-  <nav class="main-navigation">
+  return `<nav class="main-navigation">
 
     <div class="main-navigation__items">
       <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
@@ -29,13 +28,7 @@ const createFilterStatsTemplate = (films) => {
     </div>
     <a href="#stats" class="main-navigation__additional">Stats</a>
   </nav>
-
-  <ul class="sort">
-    <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
-    <li><a href="#" class="sort__button">Sort by date</a></li>
-    <li><a href="#" class="sort__button">Sort by rating</a></li>
-  </ul>
-  </div>`;
+  `;
 };
 
 export default class SiteFilterStats extends AbstractView {
@@ -45,7 +38,7 @@ export default class SiteFilterStats extends AbstractView {
   }
 
   getTemplate() {
-    return createFilterStatsTemplate(this._films);
+    return createFilterTemplate(this._films);
   }
 }
 
