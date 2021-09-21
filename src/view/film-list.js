@@ -7,7 +7,8 @@ const createFilmListTemplate = () => (
       <div class="films-list__container">
       </div>
     </section>
-  </section>`
+  </section>
+  `
 );
 
 export default class SiteFilmList extends AbstractView {
@@ -16,7 +17,8 @@ export default class SiteFilmList extends AbstractView {
   }
 
   clearFilmList() {
-    this.getElement().querySelector('.films-list__container').innerHTML = '';
+    this.getElement().innerHTML = '';
+    this.removeElement();
   }
 }
 

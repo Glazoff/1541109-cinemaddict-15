@@ -6,4 +6,16 @@ export const getRandomInteger = (a = 0, b = 1) => {
   return Math.floor(lower + Math.random() * (upper - lower + 1));
 };
 
+export  class Observable {
+  constructor() {
+    this._subscribers = [];
+  }
 
+  subscribe(callback, callback2) {
+    this._subscribers.push(callback, callback2);
+  }
+
+  next(value) {
+    this._subscribers.forEach((callback) => callback(value));
+  }
+}

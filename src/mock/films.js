@@ -258,7 +258,7 @@ const generateFilm = () => ({
 
   isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
   isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
-  isAddToFavorites: Boolean(getRandomInteger(0, 1)),
+  isAddToFavorites: Boolean(false),
 
   comments: generateComments(getRandomInteger(1, 5)),
 });
