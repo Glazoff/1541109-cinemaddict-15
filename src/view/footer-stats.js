@@ -1,10 +1,11 @@
 import AbstractView from './abstract.js';
 
-const createFooterStats = (COUNT_FILMS_LIST) => (
+const createFooterStats = (films) => (
   `<section class="footer__statistics">
-    <p>${COUNT_FILMS_LIST} movies inside</p>
+    <p>${films.length} movies inside</p>
   </section>`
 );
+
 
 export default class SiteFooterElement extends AbstractView {
   constructor(filmsCount) {

@@ -104,7 +104,7 @@ const USER_NAME = [
 ];
 
 import {getRandomInteger} from '../utils/common.js';
-
+import {nanoid} from 'nanoid';
 
 import dayjs from 'dayjs';
 // Функция рандомизирущая дату и вермя
@@ -234,6 +234,7 @@ const generateComments = (number) => {
 };
 
 const generateFilm = () => ({
+  id: nanoid(),
   poster: generateRandomPoster(),
   title: generateRandomTitle(),
   description: generateRandomDescription(),
@@ -257,7 +258,7 @@ const generateFilm = () => ({
 
   isAddToWatchlist: Boolean(getRandomInteger(0, 1)),
   isAlreadyWatched: Boolean(getRandomInteger(0, 1)),
-  isAddToFavorites: Boolean(getRandomInteger(0, 1)),
+  isAddToFavorites: Boolean(false),
 
   comments: generateComments(getRandomInteger(1, 5)),
 });

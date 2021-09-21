@@ -7,12 +7,18 @@ const createFilmListTemplate = () => (
       <div class="films-list__container">
       </div>
     </section>
-  </section>`
+  </section>
+  `
 );
 
 export default class SiteFilmList extends AbstractView {
   getTemplate() {
     return createFilmListTemplate();
+  }
+
+  clearFilmList() {
+    this.getElement().innerHTML = '';
+    this.removeElement();
   }
 }
 

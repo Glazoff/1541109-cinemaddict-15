@@ -1,4 +1,5 @@
-import AbstractView from './abstract.js';
+// import AbstractView from './abstract.js';
+import Smart from './abstract.js';
 
 const createCommentsTemplate = (commentObj) => {
   const {commentText, emoji, userName, commentData} = commentObj;
@@ -171,14 +172,80 @@ const createPopupFilmDetailsTemplate = (film) => {
 };
 
 
-export default class SitePopupFilmDetails extends AbstractView {
+export default class SitePopupFilmDetails extends Smart {
   constructor(film) {
     super();
-    this._film = film;
+    this._data = film;
+    this._editClickWatchlist = this._editClickWatchlist.bind(this);
+    this._editClickWatched = this._editClickWatched.bind(this);
+    this._editClickFavorites = this._editClickFavorites.bind(this);
+
+    this._clickHandlerEmoji = this._clickHandlerEmoji.bind(this);
+    this._inputTextComment = this._inputTextComment.bind(this);
+
+    this.getElement()
+      .querySelector('.film-details__comment-label')
+      .addEventListener('input', this._inputTextComment);
+
+    this.getElement()
+      .querySelectorAll('.film-details__emoji-label')
+      .forEach((element) => {
+        element.addEventListener('click', this._clickHandlerEmoji);
+      });
   }
 
   getTemplate() {
-    return createPopupFilmDetailsTemplate(this._film);
+    return createPopupFilmDetailsTemplate(this._data);
+  }
+
+  _inputTextComment(evt) {
+    const textComment = this.getElement().querySelector('.film-details__comment-input');
+    textComment.value = evt.target.value;
+  }
+
+  _clickHandlerEmoji(evt) {
+    evt.preventDefault();
+    const containsEmoji = this.getElement().querySelector('.film-details__add-emoji-label');
+    containsEmoji.innerHTML = '';
+    const emojiSelect = evt.target.getAttribute('src');
+    const newImg = document.createElement('img');
+
+    newImg.setAttribute('src', emojiSelect);
+    newImg.setAttribute('width', '55px');
+    newImg.setAttribute('height', '55px');
+
+    containsEmoji.append(newImg);
+  }
+
+  _editClickWatchlist(evt) {
+    evt.preventDefault();
+    this._callback.editChangeWatchlist();
+  }
+
+  _editClickWatched(evt) {
+    evt.preventDefault();
+    this._callback.editChangeWatched();
+  }
+
+  _editClickFavorites(evt) {
+    evt.preventDefault();
+    this._callback.editChangeFavorites();
+  }
+
+  setEditClickWatchlist(callback) {
+    this._callback.editChangeWatchlist = callback;
+    this.getElement().querySelector('.film-details__control-button--watchlist').addEventListener('click', this._editClickWatchlist);
+  }
+
+  setEditClickWatched(callback) {
+    this._callback.editChangeWatched = callback;
+    this.getElement().querySelector('.film-details__control-button--watched').addEventListener('click', this._editClickWatched);
+  }
+
+  setEditClickFavorites(callback) {
+    this._callback.editChangeFavorites = callback;
+    this.getElement().querySelector('.film-details__control-button--favorite').addEventListener('click', this._editClickFavorites);
   }
 }
+
 
