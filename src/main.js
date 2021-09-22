@@ -5,7 +5,7 @@ import Filters from './model/filter.js';
 import MoviePresenter from './presenter/film-presenter.js';
 import FilterPresenter from './presenter/filter-presentor.js';
 
-const COUNT_FILMS_LIST = 6;
+const COUNT_FILMS_LIST = 15;
 
 const films = generateFilms(COUNT_FILMS_LIST);
 

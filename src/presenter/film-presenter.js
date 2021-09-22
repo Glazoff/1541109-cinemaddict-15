@@ -24,8 +24,7 @@ export default class MoviePresenter {
     this._filmsDataCurrent = this._filmsData.slice();
     this._filmsCountRenders = 5;
 
-    this._filterModel.filterChanges.subscribe((films) => this._renderFilms(films.length, films), this.sort('default'));
-
+    this._filterModel.filterChanges.subscribe((films) => this._renderFilms(this._filmsCountRenders, films));
 
     this._body = document.querySelector('body');
     this._siteHeaderElement = document.querySelector('.header');
@@ -70,28 +69,16 @@ export default class MoviePresenter {
     render(this._siteMainElement, this._statsView, RenderPosition.BEFOREEND);
 
     this._statsView.setEditClickSortByData(() => {
-      const buttonActive = this._statsView.getElement().querySelector('.sort__button--active');
-      buttonActive.classList.remove('sort__button--active');
-      this._statsView.getElement().querySelector('.sort__button_date').classList.add('sort__button--active');
-
       this.sort('data');
       this._renderFilms(this._filmsCountRenders, this._filmsDataCurrent);
     });
 
     this._statsView.setEditClickSortRating(() => {
-      const buttonActive = this._statsView.getElement().querySelector('.sort__button--active');
-      buttonActive.classList.remove('sort__button--active');
-      this._statsView.getElement().querySelector('.sort__button_rating').classList.add('sort__button--active');
-
       this.sort('rating');
       this._renderFilms(this._filmsCountRenders, this._filmsDataCurrent);
     });
 
     this._statsView.setEditClickSortDefault(() => {
-      const buttonActive = this._statsView.getElement().querySelector('.sort__button--active');
-      buttonActive.classList.remove('sort__button--active');
-      this._statsView.getElement().querySelector('.sort__button_default').classList.add('sort__button--active');
-
       this.sort('default');
       this._renderFilms(this._filmsCountRenders, this._filmsDataCurrent);
     });
@@ -265,8 +252,10 @@ export default class MoviePresenter {
       return;
     }
 
+    console.log(filmsCount);
+    console.log(filmData);
 
-    if (this._filmsData.length <= filmsCount) {
+    if (filmData.length <= filmsCount) {
       for (let i = 0; i < this._filmsData.length; i++) {
         this._renderCardFilm(filmsRenders[i], this._filmContiner);
       }
@@ -274,13 +263,13 @@ export default class MoviePresenter {
       return;
     }
 
-    this._rendershowMore();
+    this._rendershowMore(filmData);
     for (let i = 0; i < filmsCount; i++) {
       this._renderCardFilm(filmsRenders[i], this._filmContiner);
     }
   }
 
-  _rendershowMore() {
+  _rendershowMore(filmData) {
     //Отрисовка фильмов по нажатию кнопки "Загрузить еще".
 
     const filmsList = this._filmContainerView.getElement().querySelector('.films-list');
@@ -289,7 +278,7 @@ export default class MoviePresenter {
     this._showMoreView.setEditClickHandler(() =>{
       this._filmContainerView.clearFilmList();
       this._filmsCountRenders += 5;
-      this._renderFilms(this._filmsCountRenders, this._filmsDataCurrent);
+      this._renderFilms(this._filmsCountRenders, filmData);
     });
   }
 

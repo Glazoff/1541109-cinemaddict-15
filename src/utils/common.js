@@ -11,8 +11,8 @@ export  class Observable {
     this._subscribers = [];
   }
 
-  subscribe(callback, callback2) {
-    this._subscribers.push(callback, callback2);
+  subscribe(callback) {
+    this._subscribers.push(callback);
   }
 
   next(value) {
